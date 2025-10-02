@@ -1,6 +1,8 @@
 package taller
 
 class ConjuntosDifusos {
+  // ---CONJUNTO DIFUSO PARA NUMEROS GRANDES---
+
   type ConjDifuso = Map[Int, Double] //se uso Map aqui para despues implementarlo
                                     // como un acumulador
 
@@ -25,3 +27,4 @@ class ConjuntosDifusos {
     inicializador(cantInicial, Map.empty, identificadorN)
   }
 }
+//-------------------------------------------------------------
