@@ -169,6 +169,10 @@ inicializador(10000, Map(1 --> ....., 10000 --> 0.998))
 
 # 3. Grafica Mermaid
 
+A continuación se muestra una breve explicación del funcionamiento
+del codigo en manera de formato Mermaid, con un breve
+paso a paso de su proceso:
+
 ```mermaid
 graph TD
     A[ConjuntosDifusos] --> B[Tipo: ConjDifuso como Mapeo]
