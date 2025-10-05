@@ -169,4 +169,20 @@ inicializador(10000, Map(1 --> ....., 10000 --> 0.998))
 
 # 3. Grafica Mermaid
 
-(Pendiente)
+```mermaid
+graph TD
+    A[ConjuntosDifusos] --> B[Tipo: ConjDifuso como Mapeo]
+    A --> C[Funcion identificadorN]
+    A --> D[Funcion grande]
+
+    D --> E[Verificar valores de d y e]
+    E --> F[Definir cantInicial y cantFinal]
+    F --> G[Llamar a inicializador]
+
+    G --> H[Es n mayor que cantFinal?]
+    H --> I[Retornar acc]
+    H --> J[Calcular valor con identificadorN]
+    J --> K[Agregar n y valor al Mapeo]
+    K --> L[Volver a llamar inicializador con n mas uno]
+    L --> H
+```
