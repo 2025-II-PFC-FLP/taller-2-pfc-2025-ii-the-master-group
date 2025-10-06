@@ -26,5 +26,25 @@ class ConjuntosDifusos {
 
     inicializador(cantInicial, Map.empty, identificadorN)
   }
+    def complemento(c: ConjDifuso): ConjDifuso = {
+      c.map { case (elem, pertenencia) => (elem, 1.0 - pertenencia) }
+    }
+
+    def union(cd1: ConjDifuso, cd2: ConjDifuso): ConjDifuso = {
+      // Se unen las llaves de ambos mapas para asegurar que se consideran todos los elementos.
+      val todasLasLlaves = cd1.keySet ++ cd2.keySet
+      todasLasLlaves.map { k =>
+        val val1 = cd1.getOrElse(k, 0.0) // Usar 0.0 si la llave no existe en un mapa
+        val val2 = cd2.getOrElse(k, 0.0)
+        k -> Math.max(val1, val2)
+      }.toMap
+    }
+    def interseccion(cd1: ConjDifuso, cd2: ConjDifuso): ConjDifuso = {
+      val todasLasLlaves = cd1.keySet ++ cd2.keySet
+      todasLasLlaves.map { k =>
+        val val1 = cd1.getOrElse(k, 0.0)
+        val val2 = cd2.getOrElse(k, 0.0)
+        k -> Math.min(val1, val2)
+      }.toMap
+    }
 }
-//-------------------------------------------------------------
