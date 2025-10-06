@@ -122,29 +122,31 @@ $$
 
 ```mermaid
 graph TD
-A[complemento(c)] --> B[map recorre c]
-B --> C[(elem, pertenencia)]
-C --> D[calcula 1 - pertenencia]
-D --> E[retorna (elem, 1 - pertenencia)]
+A["complemento(c)"] --> B["map recorre c"]
+B --> C["(elem, pertenencia)"]
+C --> D["calcula 1 - pertenencia"]
+D --> E["retorna (elem, 1 - pertenencia)"]
+
 ```
 
 ---
 
 ### 🧮 Unión
 
+
 $$
-\mu_{S_1 \cup S_2}(x) = \max(\mu_{S_1}(x), \mu_{S_2}(x))
+mu_{S_1 \cup S_2}(x) = \max(\mu_{S_1}(x), \mu_{S_2}(x))
 $$
 
 ```mermaid
 graph TD
-A[union(cd1, cd2)] --> B[obtener llaves: cd1.keySet ++ cd2.keySet]
+A[union cd1 cd2] --> B[obtener llaves cd1 keySet mas cd2 keySet]
 B --> C[para cada k en llaves]
-C --> D[obtener val1 = cd1.getOrElse(k, 0.0)]
-C --> E[obtener val2 = cd2.getOrElse(k, 0.0)]
-D --> F[calcula Math.max(val1, val2)]
+C --> D[obtener val1 igual cd1.getOrElse(k, 0.0)]
+C --> E[obtener val2 igual cd2.getOrElse(k, 0.0)]
+D --> F[calcula maximo entre val1 y val2]
 E --> F
-F --> G[retorna (k -> resultado)]
+F --> G[retorna par (k, resultado)]
 ```
 
 ---
@@ -152,18 +154,18 @@ F --> G[retorna (k -> resultado)]
 ### 🧮 Intersección
 
 $$
-\mu_{S_1 \cap S_2}(x) = \min(\mu_{S_1}(x), \mu_{S_2}(x))
+mu_{S_1 \cap S_2}(x) = \min(\mu_{S_1}(x), \mu_{S_2}(x))
 $$
 
 ```mermaid
 graph TD
-A[interseccion(cd1, cd2)] --> B[obtener llaves: cd1.keySet ++ cd2.keySet]
-B --> C[para cada k en llaves]
-C --> D[obtener val1 = cd1.getOrElse(k, 0.0)]
-C --> E[obtener val2 = cd2.getOrElse(k, 0.0)]
-D --> F[calcula Math.min(val1, val2)]
+A["interseccion(cd1, cd2)"] --> B["obtener llaves: cd1.keySet ++ cd2.keySet"]
+B --> C["para cada k en llaves"]
+C --> D["obtener val1 = cd1.getOrElse(k, 0.0)"]
+C --> E["obtener val2 = cd2.getOrElse(k, 0.0)"]
+D --> F["calcula Math.min(val1, val2)"]
 E --> F
-F --> G[retorna (k -> resultado)]
+F --> G["retorna (k -> resultado)"]
 ```
 
 ---
@@ -192,9 +194,9 @@ $$
 ### 🔹 Unión
 
 **Postulado:**
-\[
+$$
 \forall x \in U, \quad \mu_{S_1 \cup S_2}(x) = \max(\mu_{S_1}(x), \mu_{S_2}(x))
-\]
+$$
 
 **Argumento:**
 Para cada llave `k`, se calcula:
@@ -216,7 +218,7 @@ $$
 
 **Postulado:**
 $$
-\forall x \in U, \quad \mu_{S_1 \cap S_2}(x) = \min(\mu_{S_1}(x), \mu_{S_2}(x))
+forall x \in U, \quad \mu_{S_1 \cap S_2}(x) = \min(\mu_{S_1}(x), \mu_{S_2}(x))
 $$
 
 **Argumento:**
