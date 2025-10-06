@@ -39,5 +39,42 @@ class ConjuntosDifusosTest extends AnyFunSuite {
     val pertenencia = resultado4(5000)
     assert(pertenencia > 0.95, s"$pertenencia")
   }
+
+  val conjuntoA = conjuntos.grande(d = 5, e = 2)
+  val conjuntoB = conjuntos.grande(d = 20, e = 4)
+
+  test("Prueba 1: Complemento de un conjunto") {
+    val complementoA = conjuntos.complemento(conjuntoA)
+    val valorOriginal = conjuntoA(10) // Valor de pertenencia de 10 en A
+    val valorComplemento = complementoA(10) // Valor de pertenencia de 10 en ¬A
+    assert(valorComplemento == 1.0 - valorOriginal)
+  }
+
+  test("Prueba 2: Unión de dos conjuntos") {
+    val unionAB = conjuntos.union(conjuntoA, conjuntoB)
+    val valorUnion = unionAB(50) // Valor de pertenencia de 50 en A U B
+    val valorEsperado = Math.max(conjuntoA(50), conjuntoB(50))
+    assert(valorUnion == valorEsperado)
+  }
+
+  test("Prueba 3: Intersección de dos conjuntos") {
+    val interseccionAB = conjuntos.interseccion(conjuntoA, conjuntoB)
+    val valorInterseccion = interseccionAB(25) // Valor de pertenencia de 25 en A ∩ B
+    val valorEsperado = Math.min(conjuntoA(25), conjuntoB(25))
+    assert(valorInterseccion == valorEsperado)
+  }
+
+  test("Prueba 4: Propiedad de la unión con el complemento") {
+    val complementoA = conjuntos.complemento(conjuntoA)
+    val unionConComplemento = conjuntos.union(conjuntoA, complementoA)
+    // Para cualquier elemento 'n', el grado de pertenencia en A U ¬A debe ser >= 0.5
+    assert(unionConComplemento.values.forall(_ >= 0.5))
+  }
+
+  test("Prueba 5: Propiedad de la intersección con el complemento") {
+    val complementoB = conjuntos.complemento(conjuntoB)
+    val interseccionConComplemento = conjuntos.interseccion(conjuntoB, complementoB)
+    // Para cualquier elemento 'n', el grado de pertenencia en B ∩ ¬B debe ser <= 0.5
+    assert(interseccionConComplemento.values.forall(_ <= 0.5))
+  }
 }
-//--------------------------------------------------------
