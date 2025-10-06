@@ -39,7 +39,10 @@ $$
 $$
 
 **Ejemplo:**
-Si $$ c = \{(1, 0.2), (2, 0.8)\} $$, entonces:
+Si 
+$$
+c = \{(1, 0.2), (2, 0.8)\} 
+$$, entonces:
 
 $$
 \bar{c} = \{(1, 0.8), (2, 0.2)\}
@@ -140,13 +143,14 @@ $$
 
 ```mermaid
 graph TD
-A[union cd1 cd2] --> B[obtener llaves cd1 keySet mas cd2 keySet]
-B --> C[para cada k en llaves]
-C --> D[obtener val1 igual cd1.getOrElse(k, 0.0)]
-C --> E[obtener val2 igual cd2.getOrElse(k, 0.0)]
-D --> F[calcula maximo entre val1 y val2]
+A["union(cd1, cd2)"] --> B["obtener llaves: cd1.keySet + cd2.keySet"]
+B --> C["para cada k en llaves"]
+C --> D["obtener val1 = cd1.getOrElse(k, 0.0)"]
+C --> E["obtener val2 = cd2.getOrElse(k, 0.0)"]
+D --> F["calcula máximo entre val1 y val2"]
 E --> F
-F --> G[retorna par (k, resultado)]
+F --> G["retorna par (k, resultado)"]
+
 ```
 
 ---
