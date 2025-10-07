@@ -68,7 +68,7 @@ Se combinan los elementos de ambos conjuntos.
 Para cada elemento común o distinto se toma el **máximo grado de pertenencia**:
 
 $$
-\mu_{S_1 \cup S_2}(x) = \max(\mu_{S_1}(x), \mu_{S_2}(x))
+ mu_{S_1 \cup S_2}(x) = \max(\mu_{S_1}(x), \mu_{S_2}(x))
 $$
 
 **Ejemplo:**
