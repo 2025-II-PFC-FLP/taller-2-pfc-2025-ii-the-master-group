@@ -26,8 +26,9 @@ En este punto del taller, se implementan ambas funciones respetando la **recursi
 ```scala
 def inclusion(cd1: ConjDifuso, cd2: ConjDifuso): Boolean = {
   val LIMITE_UNIVERSO = 1000
+  
+  @scala.annotation.tailrec
 
-  @annotation.tailrec
   def verificar(n: Int): Boolean = {
     if (n > LIMITE_UNIVERSO) {
       true
