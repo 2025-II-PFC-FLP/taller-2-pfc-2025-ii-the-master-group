@@ -40,8 +40,8 @@ class ConjuntosDifusosTest extends AnyFunSuite {
     assert(pertenencia > 0.95, s"$pertenencia")
   }
 
-  val conjuntoA = conjuntos.grande(d = 5, e = 2)
-  val conjuntoB = conjuntos.grande(d = 20, e = 4)
+  val conjuntoA: conjuntos.ConjDifuso = conjuntos.grande(d = 5, e = 2)
+  val conjuntoB: conjuntos.ConjDifuso = conjuntos.grande(d = 20, e = 4)
 
   test("Prueba 1: Complemento de un conjunto") {
     val complementoA = conjuntos.complemento(conjuntoA)
@@ -77,4 +77,30 @@ class ConjuntosDifusosTest extends AnyFunSuite {
     // Para cualquier elemento 'n', el grado de pertenencia en B ∩ ¬B debe ser <= 0.5
     assert(interseccionConComplemento.values.forall(_ <= 0.5))
   }
-}
+
+    val setBase: conjuntos.ConjDifuso = conjuntos.grande(d = 10, e = 2)
+    val setIdentico: conjuntos.ConjDifuso = conjuntos.grande(d = 10, e = 2)
+    val setSuperconjunto: conjuntos.ConjDifuso = conjuntos.grande(d = 5, e = 2)
+    val setDistinto: conjuntos.ConjDifuso = conjuntos.grande(d = 20, e = 3)
+
+    test("Inclusión - Caso Verdadero (un conjunto está contenido en otro)") {
+      assert(conjuntos.inclusion(setBase, setSuperconjunto) === true)
+    }
+
+    test("Inclusión - Caso Falso (un conjunto no está contenido en otro)") {
+      assert(conjuntos.inclusion(setSuperconjunto, setBase) === false)
+    }
+
+    test("Igualdad - Caso Verdadero (dos conjuntos idénticos)") {
+      // Dos conjuntos generados con los mismos parámetros deben ser iguales.
+      assert(conjuntos.igualdad(setBase, setIdentico) === true)
+    }
+
+    test("Igualdad - Caso Falso (dos conjuntos distintos)") {
+      assert(conjuntos.igualdad(setBase, setDistinto) === false)
+    }
+
+    test("Propiedad Reflexiva - Un conjunto siempre se incluye a sí mismo") {
+      assert(conjuntos.inclusion(setDistinto, setDistinto) === true)
+    }
+  }

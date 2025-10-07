@@ -4,7 +4,7 @@ class ConjuntosDifusos {
   // ---CONJUNTO DIFUSO PARA NUMEROS GRANDES---
 
   type ConjDifuso = Map[Int, Double] //se uso Map aqui para despues implementarlo
-                                    // como un acumulador
+  // como un acumulador
 
   def identificadorN(n: Int, d: Int, e: Int): Double =
     Math.pow(n.toDouble / (n + d).toDouble, e.toDouble) //se uso la biblioteca Math en este caso
@@ -26,25 +26,55 @@ class ConjuntosDifusos {
 
     inicializador(cantInicial, Map.empty, identificadorN)
   }
-    def complemento(c: ConjDifuso): ConjDifuso = {
-      c.map { case (elem, pertenencia) => (elem, 1.0 - pertenencia) }
+
+  def complemento(c: ConjDifuso): ConjDifuso = {
+    c.map { case (elem, pertenencia) => (elem, 1.0 - pertenencia) }
+  }
+
+  def union(cd1: ConjDifuso, cd2: ConjDifuso): ConjDifuso = {
+    // Se unen las llaves de ambos mapas para asegurar que se consideran todos los elementos.
+    val todasLasLlaves = cd1.keySet ++ cd2.keySet
+    todasLasLlaves.map { k =>
+      val val1 = cd1.getOrElse(k, 0.0) // Usar 0.0 si la llave no existe en un mapa
+      val val2 = cd2.getOrElse(k, 0.0)
+      k -> Math.max(val1, val2)
+    }.toMap
+  }
+
+  def interseccion(cd1: ConjDifuso, cd2: ConjDifuso): ConjDifuso = {
+    val todasLasLlaves = cd1.keySet ++ cd2.keySet
+    todasLasLlaves.map { k =>
+      val val1 = cd1.getOrElse(k, 0.0)
+      val val2 = cd2.getOrElse(k, 0.0)
+      k -> Math.min(val1, val2)
+    }.toMap
+  }
+
+  def inclusion(cd1: ConjDifuso, cd2: ConjDifuso): Boolean = {
+    val LIMITE_UNIVERSO = 1000
+
+    @annotation.tailrec
+    def verificar(n: Int): Boolean = {
+      if (n > LIMITE_UNIVERSO) {
+        // Si hemos revisado todos los elementos hasta el límite sin fallar, la inclusión es verdadera.
+        true
+      } else {
+        val pertenencia1 = cd1.getOrElse(n, 0.0)
+        val pertenencia2 = cd2.getOrElse(n, 0.0)
+        if (pertenencia1 <= pertenencia2) {
+          verificar(n + 1)
+        } else {
+
+          false
+        }
+      }
     }
 
-    def union(cd1: ConjDifuso, cd2: ConjDifuso): ConjDifuso = {
-      // Se unen las llaves de ambos mapas para asegurar que se consideran todos los elementos.
-      val todasLasLlaves = cd1.keySet ++ cd2.keySet
-      todasLasLlaves.map { k =>
-        val val1 = cd1.getOrElse(k, 0.0) // Usar 0.0 si la llave no existe en un mapa
-        val val2 = cd2.getOrElse(k, 0.0)
-        k -> Math.max(val1, val2)
-      }.toMap
-    }
-    def interseccion(cd1: ConjDifuso, cd2: ConjDifuso): ConjDifuso = {
-      val todasLasLlaves = cd1.keySet ++ cd2.keySet
-      todasLasLlaves.map { k =>
-        val val1 = cd1.getOrElse(k, 0.0)
-        val val2 = cd2.getOrElse(k, 0.0)
-        k -> Math.min(val1, val2)
-      }.toMap
-    }
+    verificar(0)
+  }
+
+  def igualdad(cd1: ConjDifuso, cd2: ConjDifuso): Boolean = {
+    inclusion(cd1, cd2) && inclusion(cd2, cd1)
+  }
 }
+
